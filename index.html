@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOT at Knowledge 26</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script async src="https://www.influ2.com/tracker?clid=f9a44c38-1cef-45ba-88eb-e702ea04d6c4"></script>
+    <script src="https://js-na2.hsforms.net/forms/embed/48825129.js" defer></script>
+    <style>
+        :root {
+            --dark: #15171f;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            background: var(--dark);
+            color: #fff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        img {
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.03;
+            z-index: 999;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        #root {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        const TEAL = "#215052";
+        const TEAL_DARK = "#183944";
+        const CYAN = "#42C3D6";
+        const ORANGE = "#F16522";
+        const DARK = "#15171F";
+        const OFF = "#FAFAFA";
+        const FONT = "'Plus Jakarta Sans', sans-serif";
+
+        function useInView(threshold = 0.12) {
+            const ref = useRef(null);
+            const [visible, setVisible] = useState(false);
+
+            useEffect(() => {
+                const el = ref.current;
+                if (!el) return undefined;
+
+                const observer = new IntersectionObserver(([entry]) => {
+                    if (entry.isIntersecting) setVisible(true);
+                }, { threshold });
+
+                observer.observe(el);
+                return () => observer.disconnect();
+            }, [threshold]);
+
+            return [ref, visible];
+        }
+
+        function FadeIn({ children, delay = 0 }) {
+            const [ref, visible] = useInView();
+            return (
+                <div
+                    ref={ref}
+                    style={{
+                        opacity: visible ? 1 : 0,
+                        transform: visible ? "translateY(0)" : "translateY(24px)",
+                        transition: `opacity 0.6s ease ${delay}s, transform 0.6s ease ${delay}s`,
+                    }}
+                >
+                    {children}
+                </div>
+            );
+        }
+
+        function Avatar({ src, alt, initials, size = 56, flip = false, objectPosition = "center top" }) {
+            const [errored, setErrored] = useState(false);
+
+            return (
+                <div
+                    style={{
+                        width: `${size}px`,
+                        height: `${size}px`,
+                        borderRadius: "50%",
+                        flexShrink: 0,
+                        background: `linear-gradient(135deg, ${TEAL} 0%, ${CYAN} 100%)`,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        color: "white",
+                        fontFamily: FONT,
+                        fontSize: size > 70 ? "28px" : "16px",
+                        fontWeight: 700,
+                        overflow: "hidden",
+                    }}
+                >
+                    {!errored && src ? (
+                        <img
+                            src={src}
+                            alt={alt}
+                            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: objectPosition, transform: flip ? "scaleX(-1)" : "none" }}
+                            onError={() => setErrored(true)}
+                        />
+                    ) : (
+                        initials
+                    )}
+                </div>
+            );
+        }
+
+        const NAV_ITEMS = [
+            { label: "Dinner", href: "#dinner" },
+            { label: "About", href: "#about" },
+            { label: "Capabilities", href: "#capabilities" },
+            { label: "Proof", href: "#proof" },
+            { label: "RSVP", href: "#rsvp" },
+        ];
+
+        function Nav() {
+            const [scrolled, setScrolled] = useState(false);
+            const [menuOpen, setMenuOpen] = useState(false);
+
+            useEffect(() => {
+                const handleScroll = () => setScrolled(window.scrollY > 48);
+                window.addEventListener("scroll", handleScroll);
+                return () => window.removeEventListener("scroll", handleScroll);
+            }, []);
+
+            return (
+                <nav
+                    style={{
+                        position: "fixed",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        zIndex: 100,
+                        background: scrolled || menuOpen ? "rgba(21,23,31,0.98)" : "transparent",
+                        backdropFilter: scrolled || menuOpen ? "blur(14px)" : "none",
+                        transition: "all 0.3s ease",
+                        padding: "0 24px",
+                        borderBottom: scrolled || menuOpen ? "1px solid rgba(255,255,255,0.06)" : "none",
+                    }}
+                >
+                    <div
+                        style={{
+                            maxWidth: "1200px",
+                            margin: "0 auto",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            minHeight: "64px",
+                            padding: "8px 0",
+                            position: "relative"
+                        }}
+                    >
+                        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                            <img src="./images/BOT logo white.svg" alt="BOT Consulting" style={{ height: "32px", width: "auto", display: "block" }} />
+                            <span className="mobile-hidden" style={{ width: "1px", height: "14px", background: "rgba(255,255,255,0.18)" }} />
+                            <span className="mobile-hidden" style={{ fontFamily: FONT, fontSize: "12px", fontWeight: 700, color: CYAN, letterSpacing: "1.2px" }}>
+                                KNOWLEDGE 26
+                            </span>
+                        </div>
+                        {/* Desktop Nav */}
+                        <div className="mobile-hidden" style={{ display: "flex", gap: "22px", flexWrap: "wrap", alignItems: "center" }}>
+                            {NAV_ITEMS.map((item) => (
+                                <a
+                                    key={item.href}
+                                    href={item.href}
+                                    style={{ position: "relative", color: "rgba(255,255,255,0.68)", fontSize: "13px", fontWeight: 600, textDecoration: "none", fontFamily: FONT, transition: "color 0.2s ease" }}
+                                    onMouseEnter={(e) => (e.target.style.color = "white")}
+                                    onMouseLeave={(e) => (e.target.style.color = "rgba(255,255,255,0.68)")}
+                                >
+                                    {item.label}
+                                </a>
+                            ))}
+                        </div>
+                        {/* Mobile Hamburger Icon */}
+                        <div className="desktop-hidden-flex" style={{ alignItems: "center", cursor: "pointer", padding: "4px" }} onClick={() => setMenuOpen(!menuOpen)}>
+                            <div style={{width: "24px", height: "18px", display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
+                                <span style={{width: "100%", height: "2px", background: "white", transition: "0.3s", transform: menuOpen ? "rotate(45deg) translate(5px, 6px)" : "none"}}></span>
+                                <span style={{width: "100%", height: "2px", background: "white", transition: "0.3s", opacity: menuOpen ? 0 : 1}}></span>
+                                <span style={{width: "100%", height: "2px", background: "white", transition: "0.3s", transform: menuOpen ? "rotate(-45deg) translate(5px, -6px)" : "none"}}></span>
+                            </div>
+                        </div>
+                    </div>
+                    {/* Mobile Menu Dropdown */}
+                    {menuOpen && (
+                        <div className="nav-menu-mob desktop-hidden-flex">
+                            {NAV_ITEMS.map((item) => (
+                                <a
+                                    key={item.href}
+                                    href={item.href}
+                                    onClick={() => setMenuOpen(false)}
+                                    style={{ color: "rgba(255,255,255,0.85)", fontSize: "16px", fontWeight: 600, textDecoration: "none", fontFamily: FONT, padding: "8px 0" }}
+                                >
+                                    {item.label}
+                                </a>
+                            ))}
+                        </div>
+                    )}
+                </nav>
+            );
+        }
+
+        function Hero() {
+            return (
+                <section
+                    style={{
+                        background: `linear-gradient(160deg, ${DARK} 0%, ${TEAL_DARK} 52%, ${TEAL} 100%)`,
+                        minHeight: "100vh",
+                        display: "flex",
+                        alignItems: "center",
+                        position: "relative",
+                        overflow: "hidden",
+                    }}
+                >
+                    <div
+                        style={{
+                            position: "absolute",
+                            inset: 0,
+                            opacity: 0.05,
+                            backgroundImage: `radial-gradient(circle at 2px 2px, ${CYAN} 0.8px, transparent 0.8px)`,
+                            backgroundSize: "44px 44px",
+                        }}
+                    />
+                    <div
+                        style={{
+                            position: "absolute",
+                            top: "8%",
+                            right: "-8%",
+                            width: "540px",
+                            height: "540px",
+                            borderRadius: "50%",
+                            background: `radial-gradient(circle, rgba(241,101,34,0.16) 0%, transparent 62%)`,
+                        }}
+                    />
+
+                    <div className="hero-pad-mob" style={{ maxWidth: "1200px", margin: "0 auto", padding: "136px 24px 80px", position: "relative", zIndex: 1, width: "100%" }}>
+                        <FadeIn>
+                            <div
+                                style={{
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    gap: "8px",
+                                    background: "rgba(255,255,255,0.06)",
+                                    borderRadius: "20px",
+                                    padding: "6px 16px",
+                                    marginBottom: "28px",
+                                    border: "1px solid rgba(255,255,255,0.08)",
+                                }}
+                            >
+                                <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: ORANGE, display: "inline-block" }} />
+                                <span style={{ color: "rgba(255,255,255,0.78)", fontSize: "13px", fontWeight: 600, fontFamily: FONT }}>
+                                    Date: 6th May 2026
+                                </span>
+                            </div>
+
+                            <h1
+                                className="hero-heading-mob"
+                                style={{
+                                    fontFamily: FONT,
+                                    fontSize: "clamp(44px, 6vw, 76px)",
+                                    fontWeight: 800,
+                                    color: "white",
+                                    lineHeight: 1.03,
+                                    letterSpacing: "-2px",
+                                    margin: "0 0 22px",
+                                }}
+                            >
+                                BOT at
+                                <br />
+                                <span style={{ color: CYAN }}>Knowledge</span> <span style={{ color: ORANGE }}>26</span>
+                            </h1>
+
+                            <p style={{ fontFamily: FONT, fontSize: "18px", color: "rgba(255,255,255,0.66)", lineHeight: 1.7, maxWidth: "600px", margin: "0 0 34px" }}>
+                                We're at ServiceNow Knowledge 2026. Come say hello, meet the partners looking to scale and grab a drink!
+                            </p>
+
+                            <div className="stack-mob" style={{ display: "flex", gap: "16px", flexWrap: "wrap", marginBottom: "52px" }}>
+                                <a href="#rsvp" className="custom-btn text-center-mob" style={{ background: ORANGE, color: "white", padding: "14px 28px", borderRadius: "8px", fontSize: "15px", fontWeight: 700, textDecoration: "none", fontFamily: FONT }}>
+                                    RSVP for dinner →
+                                </a>
+                                <a href="#rsvp" className="custom-btn-outline text-center-mob" style={{ background: "rgba(255,255,255,0.06)", color: "white", padding: "14px 28px", borderRadius: "8px", fontSize: "15px", fontWeight: 600, textDecoration: "none", fontFamily: FONT, border: "1px solid rgba(255,255,255,0.12)" }}>
+                                    Book a meeting
+                                </a>
+                            </div>
+                        </FadeIn>
+
+                        <FadeIn delay={0.15}>
+                            <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: "26px" }}>
+                                <span style={{ fontFamily: FONT, fontSize: "11px", fontWeight: 700, color: "rgba(255,255,255,0.38)", letterSpacing: "2px", display: "block", marginBottom: "16px" }}>
+                                    TRUSTED BY
+                                </span>
+                                <div style={{ display: "flex", alignItems: "center", gap: "16px", flexWrap: "wrap" }}>
+                                    {[
+                                        { name: "Stridepath", logo: "./images/stridepath.png" },
+                                        { name: "Bettera", logo: "./images/BETTERA.png" }
+                                    ].map((item) => (
+                                        <div key={item.name} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                            <img src={item.logo} alt={item.name} style={{ height: "56px", borderRadius: "8px", objectFit: "contain", objectPosition: "center center" }} />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </FadeIn>
+                    </div>
+                </section>
+            );
+        }
+
+        function Dinner() {
+            return (
+                <section id="dinner" className="pad-mob" style={{ background: `linear-gradient(135deg, ${ORANGE} 0%, #C43E12 100%)`, padding: "80px 24px", position: "relative", overflow: "hidden" }}>
+                    <div style={{ position: "absolute", inset: 0, opacity: 0.06, backgroundImage: "radial-gradient(circle at 2px 2px, white 0.5px, transparent 0.5px)", backgroundSize: "32px 32px" }} />
+                    <div style={{ maxWidth: "1200px", margin: "0 auto", position: "relative", zIndex: 1 }}>
+                        <FadeIn>
+                            <div className="stack-mob stack-mob-align-start" style={{ display: "flex", alignItems: "flex-start", gap: "56px", flexWrap: "wrap" }}>
+                                <div className="dinner-box-mob" style={{ flex: "1 1 420px" }}>
+                                    <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(255,255,255,0.15)", borderRadius: "20px", padding: "6px 14px", marginBottom: "20px" }}>
+                                        <span style={{ fontSize: "14px" }}>🍽</span>
+                                        <span style={{ color: "white", fontSize: "12px", fontWeight: 700, letterSpacing: "1.5px", fontFamily: FONT }}>DINNER AT KNOWLEDGE</span>
+                                    </div>
+                                    <h2 style={{ fontFamily: FONT, fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 800, color: "white", lineHeight: 1.1, letterSpacing: "-1.5px", marginBottom: "16px" }}>
+                                        Great conversations<br />happen over dinner.
+                                    </h2>
+                                    <p style={{ fontFamily: FONT, fontSize: "16px", color: "rgba(255,255,255,0.85)", lineHeight: 1.7, maxWidth: "440px", marginBottom: "24px" }}>
+                                        Manpreet Singh, our CEO, is hosting a small dinner during Knowledge for ServiceNow ecosystem leaders.
+                                        No agenda. No deck. Just a private room, good food, and the kind of conversation that doesn't happen on an expo floor.
+                                    </p>
+                                    <a href="#rsvp" className="custom-hover-scale" style={{ display: "inline-block", background: "white", color: ORANGE, padding: "12px 24px", borderRadius: "8px", fontSize: "15px", fontWeight: 700, textDecoration: "none", fontFamily: FONT }}>
+                                        RSVP for dinner →
+                                    </a>
+                                </div>
+                                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                                    {[
+                                        { icon: "📍", label: "Private dining room", detail: "Las Vegas · venue TBA" },
+                                        { icon: "🕕", label: "Time", detail: "6:00 PM - 8:00 PM" },
+                                        { icon: "👥", label: "10-12 people", detail: "Partners, delivery leads, founders" },
+                                        { icon: "🍷", label: "Dinner's on us", detail: "Just bring yourself" },
+                                    ].map((item, index) => (
+                                        <div key={index} style={{ background: "rgba(255,255,255,0.12)", borderRadius: "10px", padding: "14px 20px", backdropFilter: "blur(8px)", minWidth: "240px" }}>
+                                            <div style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}>
+                                                <span style={{ fontSize: "16px" }}>{item.icon}</span>
+                                                <div>
+                                                    <div style={{ fontFamily: FONT, fontSize: "14px", fontWeight: 700, color: "white" }}>{item.label}</div>
+                                                    <div style={{ fontFamily: FONT, fontSize: "12px", color: "rgba(255,255,255,0.6)", marginTop: "1px" }}>{item.detail}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </FadeIn>
+                    </div>
+                </section>
+            );
+        }
+
+        function About() {
+            return (
+                <section id="about" className="pad-mob" style={{ background: OFF, padding: "72px 24px" }}>
+                    <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+                        <FadeIn>
+                            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
+                                <div style={{ width: "40px", height: "2px", background: ORANGE }} />
+                                <span style={{ color: TEAL, fontSize: "12px", fontWeight: 700, letterSpacing: "2px", fontFamily: FONT }}>WHO WE ARE</span>
+                            </div>
+                            <h2 style={{ fontFamily: FONT, fontSize: "clamp(24px, 3.8vw, 40px)", fontWeight: 800, color: DARK, letterSpacing: "-1px", margin: "0 0 16px", maxWidth: "820px" }}>
+                                Scale faster. Manage cost. Don't compromise on quality.
+                            </h2>
+                            <p style={{ fontFamily: FONT, fontSize: "15px", color: "#555", maxWidth: "760px", lineHeight: 1.75, margin: "0 0 32px" }}>
+                                BOT Consulting is a strategic delivery and build partner with deep experience scaling Global Capability Centres (GCCs) using a Build-Operate-Transfer model. We combine strong engineering talent, disciplined operations, and an AI-first mindset.
+                            </p>
+                        </FadeIn>
+
+                        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))", gap: "20px", marginBottom: "20px" }}>
+                            {[
+                                { tag: "MODEL 1", title: "Build your GCC", accent: TEAL, bestFor: "Best for: Partners ready to scale innovation from India." },
+                                { tag: "MODEL 2", title: "Bolt-on co-delivery", accent: ORANGE, bestFor: "Best for: Partners who want India delivery without standing up a full centre." },
+                            ].map((item, index) => (
+                                <FadeIn key={item.title} delay={index * 0.08}>
+                                    <div className="custom-hover-card" style={{ background: "white", borderRadius: "14px", padding: "34px 32px", border: "1px solid #E8E6E3", borderTop: `4px solid ${item.accent}`, display: "flex", flexDirection: "column", height: "100%", boxSizing: "border-box" }}>
+                                        <div>
+                                            <div style={{ fontFamily: FONT, fontSize: "11px", fontWeight: 800, letterSpacing: "3px", color: item.accent, marginBottom: "22px" }}>
+                                                {item.tag}
+                                            </div>
+                                            <div style={{ fontFamily: FONT, fontSize: "22px", fontWeight: 800, color: DARK, lineHeight: 1.2 }}>
+                                                {item.title}
+                                            </div>
+                                        </div>
+                                        <div style={{ marginTop: "36px", background: "#f9f8f6", borderRadius: "6px", borderLeft: `4px solid ${item.accent}`, padding: "16px 20px" }}>
+                                            <div style={{ fontFamily: FONT, fontSize: "14px", color: "#555", fontStyle: "italic", lineHeight: 1.5 }}>
+                                                {item.bestFor}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </FadeIn>
+                            ))}
+                        </div>
+
+                        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))", gap: "20px", marginBottom: "34px" }}>
+                            {[
+                                { label: "Speed", stat: "6 weeks to billable", accent: ORANGE },
+                                { label: "Cost", stat: "40-60% lower delivery cost", accent: TEAL },
+                                { label: "Quality", stat: "90%+ retention, 100% certified", accent: CYAN },
+                            ].map((item, index) => (
+                                <FadeIn key={item.label} delay={0.16 + index * 0.08}>
+                                    <div className="custom-hover-card" style={{ background: "white", borderRadius: "14px", padding: "26px 32px", border: "1px solid #E8E6E3", borderLeft: `4px solid ${item.accent}` }}>
+                                        <div style={{ fontFamily: FONT, fontSize: "11px", fontWeight: 800, letterSpacing: "3px", color: item.accent, marginBottom: "10px" }}>
+                                            {item.label}
+                                        </div>
+                                        <div style={{ fontFamily: FONT, fontSize: "17px", fontWeight: 800, color: DARK, lineHeight: 1.3 }}>
+                                            {item.stat}
+                                        </div>
+                                    </div>
+                                </FadeIn>
+                            ))}
+                        </div>
+
+                        <FadeIn delay={0.4}>
+                            <a href="https://www.botconsulting.io" className="custom-btn-outline-teal" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontFamily: FONT, fontSize: "14px", fontWeight: 700, color: TEAL, textDecoration: "none", padding: "14px 28px", border: `2px solid ${TEAL}`, borderRadius: "14px" }}>
+                                Get to know us more →
+                            </a>
+                        </FadeIn>
+                    </div>
+                </section>
+            );
+        }
+
+        function Capabilities() {
+            return (
+                <section id="capabilities" className="pad-mob" style={{ background: "white", padding: "72px 24px" }}>
+                    <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+                        <FadeIn>
+                            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
+                                <div style={{ width: "40px", height: "2px", background: ORANGE }} />
+                                <span style={{ color: TEAL, fontSize: "12px", fontWeight: 700, letterSpacing: "2px", fontFamily: FONT }}>SERVICENOW + AI</span>
+                            </div>
+                            <h2 style={{ fontFamily: FONT, fontSize: "clamp(24px, 3vw, 36px)", fontWeight: 800, color: DARK, letterSpacing: "-1px", marginBottom: "28px" }}>
+                                Full-platform ServiceNow capability.
+                            </h2>
+                        </FadeIn>
+
+                        <FadeIn delay={0.1}>
+                            <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginBottom: "28px" }}>
+                                {["ITSM", "HRSD", "CRM", "Custom Apps", "Dashboards", "Platform Consulting"].map((item, index) => (
+                                    <span className="custom-hover-pill" key={index} style={{ fontFamily: FONT, fontSize: "13px", fontWeight: 600, color: TEAL, padding: "8px 16px", background: `${TEAL}08`, borderRadius: "8px", border: `1px solid ${TEAL}15`, transition: "all 0.2s ease" }}>
+                                        {item}
+                                    </span>
+                                ))}
+                            </div>
+                        </FadeIn>
+
+                        <FadeIn delay={0.2}>
+                            <div className="stack-mob" style={{ background: TEAL_DARK, borderRadius: "12px", padding: "28px 32px", display: "flex", gap: "28px", flexWrap: "wrap", alignItems: "flex-start" }}>
+                                <div style={{ flex: "1 1 300px" }}>
+                                    <div style={{ color: CYAN, fontSize: "11px", fontWeight: 700, letterSpacing: "2px", fontFamily: FONT, marginBottom: "8px" }}>AI-NATIVE DELIVERY</div>
+                                    <p style={{ fontFamily: FONT, fontSize: "14px", color: "rgba(255,255,255,0.55)", lineHeight: 1.6 }}>
+                                        Most offshore ServiceNow teams do configuration. Ours build agentic AI solutions - Moveworks, Now Assist, agentic HRSD workflows, and custom SN Store apps.
+                                    </p>
+                                </div>
+                                <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", flex: "1 1 300px" }}>
+                                    {["Moveworks AI Agents", "Now Assist", "Agentic HRSD", "AR.BOT (SN Store)"].map((item) => (
+                                        <span key={item} style={{ fontFamily: FONT, fontSize: "12px", fontWeight: 600, color: "white", padding: "6px 14px", background: "rgba(255,255,255,0.06)", borderRadius: "6px", border: "1px solid rgba(255,255,255,0.08)" }}>
+                                            {item}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        </FadeIn>
+                    </div>
+                </section>
+            );
+        }
+
+        function Proof() {
+            const testimonials = [
+                {
+                    quote: "We’ve been providing AI solutions and BOT team has been crucial in helping us build critical mass with those capabilities so we can scale for our customers’ demands.",
+                    name: "Greg Smith",
+                    title: "Managing Partner, CEO",
+                    company: "Stridepath",
+                    initials: "GS",
+                    image: "./images/Greg Smith.jpeg",
+                },
+                {
+                    quote: "BOT Consulting team helped lead strategic initiatives, brought in new ideas, and elevated how we think about building solutions, not just executing them. They’ve been a true extension of our team.",
+                    name: "Brandy Brass",
+                    title: "Managing Partner, COO",
+                    company: "Stridepath",
+                    initials: "BB",
+                    image: "./images/Brandy Brass.jpeg",
+                },
+                {
+                    quote: "Partnering with BOT enabled us to move from scaling teams to building a high-impact, AI-native Center of Excellence.",
+                    name: "David Holstein",
+                    title: "CEO/Founder",
+                    company: "Bettera",
+                    initials: "DH",
+                    image: "./images/David Holstein.jpeg",
+                },
+            ];
+
+            return (
+                <section id="proof" className="pad-mob" style={{ background: DARK, padding: "80px 24px" }}>
+                    <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+                        <FadeIn>
+                            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
+                                <div style={{ width: "40px", height: "2px", background: ORANGE }} />
+                                <span style={{ color: ORANGE, fontSize: "12px", fontWeight: 700, letterSpacing: "2px", fontFamily: FONT }}>PROOF</span>
+                            </div>
+                            <h2 style={{ fontFamily: FONT, fontSize: "clamp(24px, 3.5vw, 40px)", fontWeight: 800, color: "white", letterSpacing: "-1px", marginBottom: "40px" }}>
+                                We excel at the hard stuff.
+                            </h2>
+                        </FadeIn>
+
+                        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))", gap: "20px" }}>
+                            {testimonials.map((item, index) => (
+                                <FadeIn key={item.name} delay={index * 0.12}>
+                                    <div className="custom-hover-card-dark" style={{ background: "rgba(255,255,255,0.03)", borderRadius: "14px", border: "1px solid rgba(255,255,255,0.06)", padding: "32px 28px", display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
+                                        <div>
+                                            <div style={{ fontSize: "32px", color: ORANGE, fontFamily: "Georgia, serif", lineHeight: 1, marginBottom: "12px" }}>"</div>
+                                            <p style={{ fontFamily: FONT, fontSize: "15px", color: "rgba(255,255,255,0.75)", lineHeight: 1.65, fontStyle: "italic", marginBottom: "24px" }}>
+                                                {item.quote}
+                                            </p>
+                                        </div>
+                                        <div style={{ display: "flex", alignItems: "center", gap: "14px", borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: "18px" }}>
+                                            <Avatar src={item.image} alt={item.name} initials={item.initials} />
+                                            <div>
+                                                <div style={{ fontFamily: FONT, fontSize: "14px", fontWeight: 700, color: "white" }}>{item.name}</div>
+                                                <div style={{ fontFamily: FONT, fontSize: "12px", color: "rgba(255,255,255,0.5)" }}>{item.title}</div>
+                                                <div style={{ fontFamily: FONT, fontSize: "12px", color: CYAN, fontWeight: 600, marginTop: "1px" }}>{item.company}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </FadeIn>
+                            ))}
+                        </div>
+
+                        <FadeIn delay={0.35}>
+                            <div style={{ display: "flex", gap: "40px", flexWrap: "wrap", marginTop: "40px", borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: "24px" }}>
+                                {[
+                                    { num: "8", label: "GCCs built" },
+                                    { num: "1,500+", label: "Consultants" },
+                                    { num: "95%", label: "Retention" },
+                                    { num: "$1.2B", label: "Value created" },
+                                ].map((item) => (
+                                    <div key={item.label}>
+                                        <div style={{ fontFamily: FONT, fontSize: "28px", fontWeight: 800, color: "white" }}>{item.num}</div>
+                                        <div style={{ fontFamily: FONT, fontSize: "12px", color: "rgba(255,255,255,0.35)", marginTop: "2px" }}>{item.label}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </FadeIn>
+                    </div>
+                </section>
+            );
+        }
+
+        function Host() {
+            return (
+                <section className="pad-mob" style={{ background: OFF, padding: "72px 24px" }}>
+                    <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+                        <FadeIn>
+                            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
+                                <div style={{ width: "40px", height: "2px", background: ORANGE }} />
+                                <span style={{ color: TEAL, fontSize: "12px", fontWeight: 700, letterSpacing: "2px", fontFamily: FONT }}>YOUR HOST</span>
+                            </div>
+                        </FadeIn>
+
+                        <FadeIn delay={0.1}>
+                            <div className="stack-mob stack-mob-align-start text-center-mob" style={{ background: "white", borderRadius: "14px", padding: "32px 28px", border: "1px solid #E8E6E3", display: "flex", gap: "24px", alignItems: "center", flexWrap: "wrap" }}>
+                                <div className="avatar-mob" style={{display: "flex"}}>
+                                    <Avatar src="./images/0109 - Manpreet Singh.png" alt="Manpreet Singh" initials="MS" size={92} flip={true} objectPosition="80% top" />
+                                </div>
+                                <div style={{ flex: "1 1 300px" }}>
+                                    <h3 style={{ fontFamily: FONT, fontSize: "20px", fontWeight: 800, color: DARK, marginBottom: "2px" }}>Manpreet Singh</h3>
+                                    <div style={{ fontFamily: FONT, fontSize: "14px", color: ORANGE, fontWeight: 600, marginBottom: "10px" }}>CEO & Co-Founder, BOT Consulting</div>
+                                    <p style={{ fontFamily: FONT, fontSize: "14px", color: "#555", lineHeight: 1.6, marginBottom: "12px" }}>
+                                        30+ years building global delivery teams. Built Hakkoda's India GCC from 0 to 100+ engineers - now part of IBM.
+                                        At Knowledge all three days. Happy to meet over coffee, on the floor, or at dinner.
+                                    </p>
+                                    <a href="https://www.linkedin.com/in/manpreetbotconsulting/" target="_blank" rel="noopener noreferrer" style={{ fontFamily: FONT, fontSize: "13px", color: TEAL, fontWeight: 600, textDecoration: "none" }}>
+                                        Connect on LinkedIn →
+                                    </a>
+                                </div>
+                            </div>
+                        </FadeIn>
+                    </div>
+                </section>
+            );
+        }
+
+        function RSVP() {
+            return (
+                <section id="rsvp" className="pad-mob" style={{ background: `linear-gradient(160deg, ${TEAL_DARK} 0%, ${TEAL} 100%)`, padding: "72px 24px", scrollMarginTop: "90px" }}>
+                    <div style={{ maxWidth: "820px", margin: "0 auto" }}>
+                        <FadeIn>
+                            <div style={{ background: "rgba(255,255,255,0.04)", padding: "32px 24px", borderRadius: "18px", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(16px)" }}>
+                                <div className="hs-form-frame" data-region="na2" data-form-id="e09564aa-027f-462c-8835-c9802929a8c5" data-portal-id="48825129"></div>
+                            </div>
+                        </FadeIn>
+                    </div>
+                </section>
+            );
+        }
+
+        function Footer() {
+            return (
+                <footer style={{ background: DARK, padding: "24px", borderTop: "1px solid rgba(255,255,255,0.04)" }}>
+                    <div style={{ maxWidth: "1200px", margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                            <span style={{ fontFamily: FONT, fontSize: "13px", fontWeight: 700, color: "white", letterSpacing: "1.5px" }}>BOT CONSULTING</span>
+                            <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.2)" }}>×</span>
+                            <span style={{ fontSize: "11px", color: CYAN, fontWeight: 600, fontFamily: FONT }}>K26</span>
+                        </div>
+                        <span style={{ fontFamily: FONT, fontSize: "12px", color: "rgba(255,255,255,0.25)" }}>servicenow@botconsulting.io · botconsulting.io</span>
+                    </div>
+                </footer>
+            );
+        }
+
+        function ScrollToTop() {
+            const [visible, setVisible] = useState(false);
+
+            useEffect(() => {
+                const handleScroll = () => {
+                    setVisible(window.scrollY > 300);
+                };
+                window.addEventListener("scroll", handleScroll);
+                return () => window.removeEventListener("scroll", handleScroll);
+            }, []);
+
+            const scrollToTop = () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+            };
+
+            return (
+                <button
+                    onClick={scrollToTop}
+                    title="Back to top"
+                    className="scroll-to-top-mob"
+                    style={{
+                        position: "fixed",
+                        bottom: "32px",
+                        right: "32px",
+                        width: "48px",
+                        height: "48px",
+                        borderRadius: "50%",
+                        background: "rgba(255,255,255,0.08)",
+                        backdropFilter: "blur(12px)",
+                        border: "1px solid rgba(255,255,255,0.15)",
+                        color: "white",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        cursor: "pointer",
+                        opacity: visible ? 1 : 0,
+                        visibility: visible ? "visible" : "hidden",
+                        transform: visible ? "translateY(0)" : "translateY(16px)",
+                        transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                        zIndex: 99,
+                        boxShadow: "0 8px 24px rgba(0,0,0,0.2)"
+                    }}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.background = ORANGE;
+                        e.currentTarget.style.borderColor = ORANGE;
+                        e.currentTarget.style.transform = "translateY(-4px)";
+                        e.currentTarget.style.boxShadow = "0 12px 28px rgba(241,101,34,0.3)";
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.background = "rgba(255,255,255,0.08)";
+                        e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)";
+                        e.currentTarget.style.transform = "translateY(0)";
+                        e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.2)";
+                    }}
+                >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M18 15l-6-6-6 6"/>
+                    </svg>
+                </button>
+            );
+        }
+
+        function K26Microsite() {
+            return (
+                <div style={{ margin: 0, padding: 0 }}>
+                    <style>{`
+        .custom-hover-card { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .custom-hover-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(0,0,0,0.06); }
+        .custom-hover-card-dark { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease; }
+        .custom-hover-card-dark:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(0,0,0,0.2); border-color: rgba(255,255,255,0.12); }
+        .custom-input { transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease; }
+        .custom-input:focus { border-color: #F16522 !important; background: rgba(255,255,255,0.08) !important; box-shadow: 0 0 0 3px rgba(241,101,34,0.15) !important; }
+        .custom-btn { transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease; }
+        .custom-btn:hover { transform: translateY(-2px); opacity: 0.95; box-shadow: 0 8px 24px rgba(241,101,34,0.3); }
+        .custom-btn-outline { transition: background 0.2s ease, color 0.2s ease; }
+        .custom-btn-outline:hover { background: rgba(255,255,255,0.1) !important; }
+        .custom-btn-outline-teal { transition: background 0.2s ease, color 0.2s ease; }
+        .custom-btn-outline-teal:hover { background: #215052 !important; color: white !important; }
+        .custom-hover-scale { transition: transform 0.2s ease; }
+        .custom-hover-scale:hover { transform: scale(1.02); }
+        .custom-check-row:hover { background: rgba(255,255,255,0.08) !important; border-color: rgba(255,255,255,0.2) !important; }
+        .custom-hover-pill:hover { background: rgba(33,80,82,0.12) !important; transform: translateY(-1px); }
+        @media (max-width: 768px) {
+            .mobile-hidden { display: none !important; }
+            .desktop-hidden { display: block !important; }
+            .desktop-hidden-flex { display: flex !important; }
+            .pad-mob { padding: 56px 20px !important; }
+            .hero-pad-mob { padding: 110px 20px 48px !important; }
+            .stack-mob { flex-direction: column !important; align-items: stretch !important; gap: 16px !important; }
+            .stack-mob > * { flex-basis: auto !important; height: auto !important; }
+            .stack-mob-align-start { align-items: flex-start !important; }
+            .text-center-mob { text-align: center !important; }
+            .grid-1-mob { grid-template-columns: 1fr !important; }
+            .nav-menu-mob { position: absolute; top: 100%; left: 0; right: 0; background: rgba(21,23,31,0.98); backdrop-filter: blur(14px); padding: 24px; display: flex; flex-direction: column; gap: 20px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+            .scroll-to-top-mob { bottom: 20px !important; right: 20px !important; width: 44px !important; height: 44px !important; }
+        }
+        @media (min-width: 769px) {
+            .desktop-hidden, .desktop-hidden-flex { display: none !important; }
+        }
+      `}</style>
+                    <Nav />
+                    <Hero />
+                    <Dinner />
+                    <About />
+                    <Capabilities />
+                    <Proof />
+                    <Host />
+                    <RSVP />
+                    <Footer />
+                    <ScrollToTop />
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<K26Microsite />);
+    </script>
+</body>
+
+</html>
