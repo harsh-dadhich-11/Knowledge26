@@ -319,33 +319,35 @@
                         </FadeIn>
 
                         <FadeIn delay={0.15}>
-                            <div className="stack-mob" style={{ borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: "26px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "40px", flexWrap: "wrap" }}>
-                                <div>
-                                    <div style={{ display: "flex", gap: "40px", flexWrap: "wrap" }}>
+                            <div className="stats-trusted-container" style={{ borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: "40px", display: "flex", alignItems: "center", gap: "4vw", flexWrap: "wrap", justifyContent: "center" }}>
+                                <div style={{ flex: "1 1 380px" }}>
+                                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px 20px" }}>
                                         {[
-                                            { num: "8", label: "GCCs built" },
-                                            { num: "1,500+", label: "Consultants" },
+                                            { num: "8", label: "GCC's Built" },
+                                            { num: "1500+", label: "Consultants" },
                                             { num: "95%", label: "Retention" },
-                                            { num: "$1.2B", label: "Value created" },
+                                            { num: "$1.2B", label: "Value Created" },
                                         ].map((item) => (
-                                            <div key={item.label}>
-                                                <div style={{ fontFamily: FONT, fontSize: "28px", fontWeight: 800, color: "white" }}>{item.num}</div>
-                                                <div style={{ fontFamily: FONT, fontSize: "12px", color: "rgba(255,255,255,0.35)", marginTop: "2px" }}>{item.label}</div>
+                                            <div key={item.label} style={{ textAlign: "center" }}>
+                                                <div style={{ fontFamily: FONT, fontSize: "42px", fontWeight: 800, color: "white" }}>{item.num}</div>
+                                                <div style={{ fontFamily: FONT, fontSize: "16px", fontWeight: 700, color: "white", marginTop: "8px" }}>{item.label}</div>
                                             </div>
                                         ))}
                                     </div>
                                 </div>
-                                <div style={{ flexShrink: 0 }}>
-                                    <span style={{ fontFamily: FONT, fontSize: "11px", fontWeight: 700, color: "rgba(255,255,255,0.38)", letterSpacing: "2px", display: "block", marginBottom: "16px", textAlign: "right" }}>
-                                        TRUSTED BY
+                                <div className="mobile-hidden" style={{ width: "1px", alignSelf: "stretch", background: "white", minHeight: "180px" }}></div>
+                                <div className="desktop-hidden" style={{ width: "100%", height: "1px", background: "white", margin: "20px 0" }}></div>
+                                <div style={{ flex: "1 1 340px", display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                                    <span style={{ fontFamily: FONT, fontSize: "24px", fontWeight: 700, color: "white", display: "block", marginBottom: "20px" }}>
+                                        Trusted By
                                     </span>
-                                    <div style={{ display: "flex", alignItems: "center", gap: "16px", flexWrap: "wrap", justifyContent: "flex-end" }}>
+                                    <div style={{ display: "flex", flexDirection: "column", gap: "16px", width: "100%", maxWidth: "340px" }}>
                                         {[
                                             { name: "Stridepath", logo: "./images/stridepath.png" },
                                             { name: "Bettera", logo: "./images/BETTERA.png" }
                                         ].map((item) => (
-                                            <div key={item.name} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                                <img src={item.logo} alt={item.name} style={{ height: "56px", borderRadius: "8px", objectFit: "contain", objectPosition: "center center" }} />
+                                            <div key={item.name} style={{ background: "white", padding: "16px 24px", display: "flex", justifyContent: "center", alignItems: "center", width: "100%" }}>
+                                                <img src={item.logo} alt={item.name} style={{ height: "48px", objectFit: "contain" }} />
                                             </div>
                                         ))}
                                     </div>
@@ -359,25 +361,25 @@
 
         function Dinner() {
             return (
-                <section id="dinner" className="pad-mob" style={{ background: `linear-gradient(135deg, ${ORANGE} 0%, #C43E12 100%)`, padding: "80px 24px", position: "relative", overflow: "hidden" }}>
+                <section id="dinner" className="pad-mob" style={{ background: `linear-gradient(135deg, ${ORANGE} 0%, #C43E12 100%)`, padding: "20px 24px", position: "relative", overflow: "hidden" }}>
                     <div style={{ position: "absolute", inset: 0, opacity: 0.06, backgroundImage: "radial-gradient(circle at 2px 2px, white 0.5px, transparent 0.5px)", backgroundSize: "32px 32px" }} />
                     <div style={{ maxWidth: "1200px", margin: "0 auto", position: "relative", zIndex: 1 }}>
                         <FadeIn>
                             <div className="stack-mob stack-mob-align-start" style={{ display: "flex", alignItems: "flex-start", gap: "56px", flexWrap: "wrap" }}>
                                 <div className="dinner-box-mob" style={{ flex: "1 1 420px" }}>
-                                    <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(255,255,255,0.15)", borderRadius: "20px", padding: "6px 14px", marginBottom: "32px" }}>
+                                    <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(255,255,255,0.15)", borderRadius: "20px", padding: "6px 14px", marginBottom: "2px" }}>
                                         <span style={{ fontSize: "14px" }}>🍽</span>
-                                        <span style={{ color: "white", fontSize: "12px", fontWeight: 700, letterSpacing: "1.5px", fontFamily: FONT }}>DINNER AT KNOWLEDGE</span>
+                                        <span style={{ color: "white", fontSize: "12px", fontWeight: 700, letterSpacing: "1.5px", fontFamily: FONT }}>DINNER AT KNOWLEDGE26</span>
                                     </div>
                                     <h2 style={{ fontFamily: FONT, fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 800, color: "white", lineHeight: 1.1, letterSpacing: "-1.5px", marginBottom: "16px" }}>
                                         Great conversations<br />happen over dinner.
                                     </h2>
                                     <p style={{ fontFamily: FONT, fontSize: "16px", color: "rgba(255,255,255,0.85)", lineHeight: 1.7, maxWidth: "440px", marginBottom: "40px" }}>
-                                        Manpreet Singh, our CEO, is hosting a small dinner during Knowledge for ServiceNow ecosystem leaders.
+                                        Manpreet Singh, our CEO, is hosting a small dinner during Knowledge26 for ServiceNow ecosystem leaders.
                                         No agenda. No deck. Just a private room, good food, and the kind of conversation that doesn't happen on an expo floor.
                                     </p>
                                     <a href="#rsvp" className="custom-hover-scale" style={{ display: "inline-block", background: "white", color: ORANGE, padding: "12px 24px", borderRadius: "8px", fontSize: "15px", fontWeight: 700, textDecoration: "none", fontFamily: FONT }}>
-                                        RSVP for dinner →
+                                        Limited seats available →
                                     </a>
                                 </div>
                                 <div className="right-dinner-info" style={{ display: "flex", flexDirection: "column", gap: "20px", marginTop: "64px" }}>
@@ -595,7 +597,7 @@
                 <section className="pad-mob" style={{ background: OFF, padding: "72px 24px" }}>
                     <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
                         <FadeIn>
-                            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "48px" }}>
                                 <div style={{ width: "40px", height: "2px", background: ORANGE }} />
                                 <span style={{ color: TEAL, fontSize: "12px", fontWeight: 700, letterSpacing: "2px", fontFamily: FONT }}>YOUR HOST</span>
                             </div>
@@ -613,7 +615,7 @@
                                         30+ years building global delivery teams. Built Hakkoda's India GCC from 0 to 100+ engineers - now part of IBM.
                                         At Knowledge all three days. Happy to meet over coffee, on the floor, or at dinner.
                                     </p>
-                                    <a href="https://www.linkedin.com/in/manpreetbotconsulting/" target="_blank" rel="noopener noreferrer" style={{ fontFamily: FONT, fontSize: "13px", color: TEAL, fontWeight: 600, textDecoration: "none" }}>
+                                    <a href="https://www.linkedin.com/in/botmanpreetsingh/" target="_blank" rel="noopener noreferrer" style={{ fontFamily: FONT, fontSize: "13px", color: TEAL, fontWeight: 600, textDecoration: "none" }}>
                                         Connect on LinkedIn →
                                     </a>
                                 </div>
