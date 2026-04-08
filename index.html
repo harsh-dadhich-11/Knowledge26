@@ -208,10 +208,10 @@
                         </div>
                         {/* Mobile Hamburger Icon */}
                         <div className="desktop-hidden-flex" style={{ alignItems: "center", cursor: "pointer", padding: "4px" }} onClick={() => setMenuOpen(!menuOpen)}>
-                            <div style={{width: "24px", height: "18px", display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
-                                <span style={{width: "100%", height: "2px", background: "white", transition: "0.3s", transform: menuOpen ? "rotate(45deg) translate(5px, 6px)" : "none"}}></span>
-                                <span style={{width: "100%", height: "2px", background: "white", transition: "0.3s", opacity: menuOpen ? 0 : 1}}></span>
-                                <span style={{width: "100%", height: "2px", background: "white", transition: "0.3s", transform: menuOpen ? "rotate(-45deg) translate(5px, -6px)" : "none"}}></span>
+                            <div style={{ width: "24px", height: "18px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                                <span style={{ width: "100%", height: "2px", background: "white", transition: "0.3s", transform: menuOpen ? "rotate(45deg) translate(5px, 6px)" : "none" }}></span>
+                                <span style={{ width: "100%", height: "2px", background: "white", transition: "0.3s", opacity: menuOpen ? 0 : 1 }}></span>
+                                <span style={{ width: "100%", height: "2px", background: "white", transition: "0.3s", transform: menuOpen ? "rotate(-45deg) translate(5px, -6px)" : "none" }}></span>
                             </div>
                         </div>
                     </div>
@@ -267,7 +267,7 @@
                         }}
                     />
 
-                    <div className="hero-pad-mob" style={{ maxWidth: "1200px", margin: "0 auto", padding: "136px 24px 80px", position: "relative", zIndex: 1, width: "100%" }}>
+                    <div className="hero-pad-mob" style={{ maxWidth: "1200px", margin: "0 auto", padding: "136px 24px 40px", position: "relative", zIndex: 1, width: "100%" }}>
                         <FadeIn>
                             <div
                                 style={{
@@ -319,19 +319,36 @@
                         </FadeIn>
 
                         <FadeIn delay={0.15}>
-                            <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: "26px" }}>
-                                <span style={{ fontFamily: FONT, fontSize: "11px", fontWeight: 700, color: "rgba(255,255,255,0.38)", letterSpacing: "2px", display: "block", marginBottom: "16px" }}>
-                                    TRUSTED BY
-                                </span>
-                                <div style={{ display: "flex", alignItems: "center", gap: "16px", flexWrap: "wrap" }}>
-                                    {[
-                                        { name: "Stridepath", logo: "./images/stridepath.png" },
-                                        { name: "Bettera", logo: "./images/BETTERA.png" }
-                                    ].map((item) => (
-                                        <div key={item.name} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                            <img src={item.logo} alt={item.name} style={{ height: "56px", borderRadius: "8px", objectFit: "contain", objectPosition: "center center" }} />
-                                        </div>
-                                    ))}
+                            <div className="stack-mob" style={{ borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: "26px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "40px", flexWrap: "wrap" }}>
+                                <div>
+                                    <div style={{ display: "flex", gap: "40px", flexWrap: "wrap" }}>
+                                        {[
+                                            { num: "8", label: "GCCs built" },
+                                            { num: "1,500+", label: "Consultants" },
+                                            { num: "95%", label: "Retention" },
+                                            { num: "$1.2B", label: "Value created" },
+                                        ].map((item) => (
+                                            <div key={item.label}>
+                                                <div style={{ fontFamily: FONT, fontSize: "28px", fontWeight: 800, color: "white" }}>{item.num}</div>
+                                                <div style={{ fontFamily: FONT, fontSize: "12px", color: "rgba(255,255,255,0.35)", marginTop: "2px" }}>{item.label}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div style={{ flexShrink: 0 }}>
+                                    <span style={{ fontFamily: FONT, fontSize: "11px", fontWeight: 700, color: "rgba(255,255,255,0.38)", letterSpacing: "2px", display: "block", marginBottom: "16px", textAlign: "right" }}>
+                                        TRUSTED BY
+                                    </span>
+                                    <div style={{ display: "flex", alignItems: "center", gap: "16px", flexWrap: "wrap", justifyContent: "flex-end" }}>
+                                        {[
+                                            { name: "Stridepath", logo: "./images/stridepath.png" },
+                                            { name: "Bettera", logo: "./images/BETTERA.png" }
+                                        ].map((item) => (
+                                            <div key={item.name} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                                <img src={item.logo} alt={item.name} style={{ height: "56px", borderRadius: "8px", objectFit: "contain", objectPosition: "center center" }} />
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         </FadeIn>
@@ -363,12 +380,11 @@
                                         RSVP for dinner →
                                     </a>
                                 </div>
-                                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                                <div className="right-dinner-info" style={{ display: "flex", flexDirection: "column", gap: "12px", marginTop: "52px" }}>
                                     {[
-                                        { icon: "📍", label: "Private dining room", detail: "Las Vegas · venue TBA" },
+                                        { icon: "📍", label: "Zuma", detail: "Las Vegas" },
                                         { icon: "🕕", label: "Time", detail: "6:00 PM - 8:00 PM" },
-                                        { icon: "👥", label: "10-12 people", detail: "Partners, delivery leads, founders" },
-                                        { icon: "🍷", label: "Dinner's on us", detail: "Just bring yourself" },
+                                        { icon: "📅", label: "6th May 2026", detail: "Just bring yourself" },
                                     ].map((item, index) => (
                                         <div key={index} style={{ background: "rgba(255,255,255,0.12)", borderRadius: "10px", padding: "14px 20px", backdropFilter: "blur(8px)", minWidth: "240px" }}>
                                             <div style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}>
@@ -569,21 +585,6 @@
                             ))}
                         </div>
 
-                        <FadeIn delay={0.35}>
-                            <div style={{ display: "flex", gap: "40px", flexWrap: "wrap", marginTop: "40px", borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: "24px" }}>
-                                {[
-                                    { num: "8", label: "GCCs built" },
-                                    { num: "1,500+", label: "Consultants" },
-                                    { num: "95%", label: "Retention" },
-                                    { num: "$1.2B", label: "Value created" },
-                                ].map((item) => (
-                                    <div key={item.label}>
-                                        <div style={{ fontFamily: FONT, fontSize: "28px", fontWeight: 800, color: "white" }}>{item.num}</div>
-                                        <div style={{ fontFamily: FONT, fontSize: "12px", color: "rgba(255,255,255,0.35)", marginTop: "2px" }}>{item.label}</div>
-                                    </div>
-                                ))}
-                            </div>
-                        </FadeIn>
                     </div>
                 </section>
             );
@@ -602,7 +603,7 @@
 
                         <FadeIn delay={0.1}>
                             <div className="stack-mob stack-mob-align-start text-center-mob" style={{ background: "white", borderRadius: "14px", padding: "32px 28px", border: "1px solid #E8E6E3", display: "flex", gap: "24px", alignItems: "center", flexWrap: "wrap" }}>
-                                <div className="avatar-mob" style={{display: "flex"}}>
+                                <div className="avatar-mob" style={{ display: "flex" }}>
                                     <Avatar src="./images/0109 - Manpreet Singh.png" alt="Manpreet Singh" initials="MS" size={92} flip={true} objectPosition="80% top" />
                                 </div>
                                 <div style={{ flex: "1 1 300px" }}>
@@ -646,7 +647,7 @@
                             <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.2)" }}>×</span>
                             <span style={{ fontSize: "11px", color: CYAN, fontWeight: 600, fontFamily: FONT }}>K26</span>
                         </div>
-                        <span style={{ fontFamily: FONT, fontSize: "12px", color: "rgba(255,255,255,0.25)" }}>servicenow@botconsulting.io · botconsulting.io</span>
+                        {/* <span style={{ fontFamily: FONT, fontSize: "12px", color: "rgba(255,255,255,0.25)" }}>servicenow@botconsulting.io · botconsulting.io</span> */}
                     </div>
                 </footer>
             );
@@ -711,7 +712,7 @@
                     }}
                 >
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M18 15l-6-6-6 6"/>
+                        <path d="M18 15l-6-6-6 6" />
                     </svg>
                 </button>
             );
@@ -742,7 +743,7 @@
             .desktop-hidden { display: block !important; }
             .desktop-hidden-flex { display: flex !important; }
             .pad-mob { padding: 56px 20px !important; }
-            .hero-pad-mob { padding: 110px 20px 48px !important; }
+            .hero-pad-mob { padding: 110px 20px 24px !important; }
             .stack-mob { flex-direction: column !important; align-items: stretch !important; gap: 16px !important; }
             .stack-mob > * { flex-basis: auto !important; height: auto !important; }
             .stack-mob-align-start { align-items: flex-start !important; }
@@ -750,6 +751,7 @@
             .grid-1-mob { grid-template-columns: 1fr !important; }
             .nav-menu-mob { position: absolute; top: 100%; left: 0; right: 0; background: rgba(21,23,31,0.98); backdrop-filter: blur(14px); padding: 24px; display: flex; flex-direction: column; gap: 20px; border-bottom: 1px solid rgba(255,255,255,0.06); }
             .scroll-to-top-mob { bottom: 20px !important; right: 20px !important; width: 44px !important; height: 44px !important; }
+            .right-dinner-info { margin-top: 0 !important; }
         }
         @media (min-width: 769px) {
             .desktop-hidden, .desktop-hidden-flex { display: none !important; }
