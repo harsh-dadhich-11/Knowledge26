@@ -267,10 +267,11 @@
                         }}
                     />
 
-                    <div className="hero-pad-mob" style={{ maxWidth: "1200px", margin: "0 auto", padding: "136px 24px 40px", position: "relative", zIndex: 1, width: "100%" }}>
-                        <FadeIn>
-                            <div style={{ display: "flex", alignItems: "center", gap: "40px", flexWrap: "wrap", justifyContent: "space-between", marginBottom: "52px" }}>
-                                <div style={{ flex: "1 1 500px", maxWidth: "600px" }}>
+                    <div className="hero-pad-mob" style={{ maxWidth: "1200px", margin: "0 auto", padding: "136px 24px 80px", position: "relative", zIndex: 1, width: "100%" }}>
+                        <div style={{ display: "flex", gap: "48px", alignItems: "flex-start", flexWrap: "wrap" }}>
+                            {/* Left Content */}
+                            <div style={{ flex: "1 1 500px" }}>
+                                <FadeIn>
                                     <div
                                         style={{
                                             display: "inline-flex",
@@ -307,10 +308,10 @@
                                     </h1>
 
                                     <p style={{ fontFamily: FONT, fontSize: "18px", color: "rgba(255,255,255,0.66)", lineHeight: 1.7, maxWidth: "600px", margin: "0 0 34px" }}>
-                                        Trusted partner of choice for building high performing delivery teams in India!
+                                        We're a trusted partner of choice for building high performing AI native delivery teams in India - Come say hello and grab a drink with us!
                                     </p>
 
-                                    <div className="stack-mob" style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+                                    <div className="stack-mob" style={{ display: "flex", gap: "16px", flexWrap: "wrap", marginBottom: "52px" }}>
                                         <a href="#rsvp" className="custom-btn text-center-mob" style={{ background: ORANGE, color: "white", padding: "14px 28px", borderRadius: "8px", fontSize: "15px", fontWeight: 700, textDecoration: "none", fontFamily: FONT }}>
                                             RSVP for dinner →
                                         </a>
@@ -318,18 +319,36 @@
                                             Book a meeting
                                         </a>
                                     </div>
-                                </div>
-                                <div style={{ flex: "1 1 400px", display: "flex", justifyContent: "center" }}>
-                                    <img src="./images/knowledge26-banner.png" alt="Knowledge 26 Banner" style={{ width: "100%", maxWidth: "540px", borderRadius: "16px", boxShadow: "0 24px 48px rgba(0,0,0,0.3)" }} />
-                                </div>
-                            </div>
-                        </FadeIn>
+                                </FadeIn>
 
-                        <FadeIn delay={0.15}>
-                            <div className="stats-trusted-container" style={{ borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: "40px", display: "flex", justifyContent: "center", width: "100%" }}>
-                                <img src="./images/gcc-trusted-banner.png" alt="8 GCCs Built and Trusted By" style={{ width: "100%", maxWidth: "1000px", objectFit: "contain" }} />
+                                <FadeIn delay={0.15}>
+                                    <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: "26px" }}>
+                                        <span style={{ fontFamily: FONT, fontSize: "11px", fontWeight: 700, color: "rgba(255,255,255,0.38)", letterSpacing: "2px", display: "block", marginBottom: "16px" }}>
+                                            TRUSTED BY
+                                        </span>
+                                        <div style={{ display: "flex", alignItems: "center", gap: "16px", flexWrap: "wrap" }}>
+                                            {[
+                                                { name: "Stridepath", logo: "./images/stridepath.png" },
+                                                { name: "Bettera", logo: "./images/BETTERA.png" }
+                                            ].map((item) => (
+                                                <div key={item.name} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                                    <img src={item.logo} alt={item.name} style={{ height: "56px", borderRadius: "8px", objectFit: "contain", objectPosition: "center center" }} />
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </FadeIn>
                             </div>
-                        </FadeIn>
+
+                            {/* Right Image Content */}
+                            <div className="hero-img-mob" style={{ flex: "1 1 400px", display: "flex", justifyContent: "center", marginTop: "56px" }}>
+                                <FadeIn delay={0.25}>
+                                    <div style={{ position: "relative", width: "100%", maxWidth: "560px", aspectRatio: "16/10", borderRadius: "20px", overflow: "hidden", boxShadow: "0 24px 48px rgba(0,0,0,0.4)", border: "1px solid rgba(255,255,255,0.12)" }}>
+                                        <img src="./images/vegas.jpg" alt="Las Vegas" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                                    </div>
+                                </FadeIn>
+                            </div>
+                        </div>
                     </div>
                 </section>
             );
@@ -337,32 +356,33 @@
 
         function Dinner() {
             return (
-                <section id="dinner" className="pad-mob" style={{ background: `linear-gradient(135deg, ${ORANGE} 0%, #C43E12 100%)`, padding: "20px 24px", position: "relative", overflow: "hidden" }}>
+                <section id="dinner" className="pad-mob" style={{ background: `linear-gradient(135deg, ${ORANGE} 0%, #C43E12 100%)`, padding: "80px 24px", position: "relative", overflow: "hidden" }}>
                     <div style={{ position: "absolute", inset: 0, opacity: 0.06, backgroundImage: "radial-gradient(circle at 2px 2px, white 0.5px, transparent 0.5px)", backgroundSize: "32px 32px" }} />
                     <div style={{ maxWidth: "1200px", margin: "0 auto", position: "relative", zIndex: 1 }}>
                         <FadeIn>
                             <div className="stack-mob stack-mob-align-start" style={{ display: "flex", alignItems: "flex-start", gap: "56px", flexWrap: "wrap" }}>
                                 <div className="dinner-box-mob" style={{ flex: "1 1 420px" }}>
-                                    <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(255,255,255,0.15)", borderRadius: "20px", padding: "6px 14px", marginBottom: "2px" }}>
+                                    <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(255,255,255,0.15)", borderRadius: "20px", padding: "6px 14px", marginBottom: "20px" }}>
                                         <span style={{ fontSize: "14px" }}>🍽</span>
-                                        <span style={{ color: "white", fontSize: "12px", fontWeight: 700, letterSpacing: "1.5px", fontFamily: FONT }}>DINNER AT KNOWLEDGE26</span>
+                                        <span style={{ color: "white", fontSize: "12px", fontWeight: 700, letterSpacing: "1.5px", fontFamily: FONT }}>DINNER AT KNOWLEDGE</span>
                                     </div>
                                     <h2 style={{ fontFamily: FONT, fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 800, color: "white", lineHeight: 1.1, letterSpacing: "-1.5px", marginBottom: "16px" }}>
                                         Great conversations<br />happen over dinner.
                                     </h2>
-                                    <p style={{ fontFamily: FONT, fontSize: "16px", color: "rgba(255,255,255,0.85)", lineHeight: 1.7, maxWidth: "440px", marginBottom: "40px" }}>
-                                        Manpreet Singh, our CEO, is hosting a small dinner during Knowledge26 for ServiceNow ecosystem leaders.
-                                        No agenda. No deck. Just a private room, good food, and the kind of conversation that doesn't happen on an expo floor.
+                                    <p style={{ fontFamily: FONT, fontSize: "16px", color: "rgba(255,255,255,0.85)", lineHeight: 1.7, maxWidth: "440px", marginBottom: "24px" }}>
+                                        We’re hosting a private dinner at Knowledge26 for ServiceNow ecosystem leaders.
+                                        No agenda. No decks. Just great food, real conversations—and the kind you don’t get on the expo floor.
+                                        Join Manpreet Singh and a select group of leaders shaping what’s next.
                                     </p>
                                     <a href="#rsvp" className="custom-hover-scale" style={{ display: "inline-block", background: "white", color: ORANGE, padding: "12px 24px", borderRadius: "8px", fontSize: "15px", fontWeight: 700, textDecoration: "none", fontFamily: FONT }}>
-                                        Limited seats available →
+                                        RSVP for dinner →
                                     </a>
                                 </div>
-                                <div className="right-dinner-info" style={{ display: "flex", flexDirection: "column", gap: "20px", marginTop: "64px" }}>
+                                <div className="dinner-details-mob" style={{ display: "flex", flexDirection: "column", gap: "12px", marginTop: "48px" }}>
                                     {[
                                         { icon: "📍", label: "Zuma", detail: "Las Vegas" },
+                                        { icon: "📅", label: "Date", detail: "6th May 2026" },
                                         { icon: "🕕", label: "Time", detail: "6:00 PM - 8:00 PM" },
-                                        { icon: "📅", label: "6th May 2026", detail: "Just bring yourself" },
                                     ].map((item, index) => (
                                         <div key={index} style={{ background: "rgba(255,255,255,0.12)", borderRadius: "10px", padding: "14px 20px", backdropFilter: "blur(8px)", minWidth: "240px" }}>
                                             <div style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}>
@@ -392,7 +412,8 @@
                                 <span style={{ color: TEAL, fontSize: "12px", fontWeight: 700, letterSpacing: "2px", fontFamily: FONT }}>WHO WE ARE</span>
                             </div>
                             <h2 style={{ fontFamily: FONT, fontSize: "clamp(24px, 3.8vw, 40px)", fontWeight: 800, color: DARK, letterSpacing: "-1px", margin: "0 0 16px", maxWidth: "820px" }}>
-                                Scale faster. Manage cost. Don't compromise on quality.
+                                Build your delivery teams.
+                                <br /> Power your AI innovation.
                             </h2>
                             <p style={{ fontFamily: FONT, fontSize: "15px", color: "#555", maxWidth: "760px", lineHeight: 1.75, margin: "0 0 32px" }}>
                                 BOT Consulting is a strategic delivery and build partner with deep experience scaling Global Capability Centres (GCCs) using a Build-Operate-Transfer model. We combine strong engineering talent, disciplined operations, and an AI-first mindset.
@@ -563,6 +584,23 @@
                             ))}
                         </div>
 
+                        {/* 
+                        <FadeIn delay={0.35}>
+                            <div style={{ display: "flex", gap: "40px", flexWrap: "wrap", marginTop: "40px", borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: "24px" }}>
+                                {[
+                                    { num: "8", label: "GCCs built" },
+                                    { num: "1,500+", label: "Consultants" },
+                                    { num: "95%", label: "Retention" },
+                                    { num: "$1.2B", label: "Value created" },
+                                ].map((item) => (
+                                    <div key={item.label}>
+                                        <div style={{ fontFamily: FONT, fontSize: "28px", fontWeight: 800, color: "white" }}>{item.num}</div>
+                                        <div style={{ fontFamily: FONT, fontSize: "12px", color: "rgba(255,255,255,0.35)", marginTop: "2px" }}>{item.label}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </FadeIn>
+                        */}
                     </div>
                 </section>
             );
@@ -573,7 +611,7 @@
                 <section className="pad-mob" style={{ background: OFF, padding: "72px 24px" }}>
                     <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
                         <FadeIn>
-                            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "48px" }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "36px" }}>
                                 <div style={{ width: "40px", height: "2px", background: ORANGE }} />
                                 <span style={{ color: TEAL, fontSize: "12px", fontWeight: 700, letterSpacing: "2px", fontFamily: FONT }}>YOUR HOST</span>
                             </div>
@@ -617,18 +655,17 @@
         }
 
         function Footer() {
-            return (
-                <footer style={{ background: DARK, padding: "24px", borderTop: "1px solid rgba(255,255,255,0.04)" }}>
-                    <div style={{ maxWidth: "1200px", margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                            <span style={{ fontFamily: FONT, fontSize: "13px", fontWeight: 700, color: "white", letterSpacing: "1.5px" }}>BOT CONSULTING</span>
-                            <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.2)" }}>×</span>
-                            <span style={{ fontSize: "11px", color: CYAN, fontWeight: 600, fontFamily: FONT }}>K26</span>
-                        </div>
-                        {/* <span style={{ fontFamily: FONT, fontSize: "12px", color: "rgba(255,255,255,0.25)" }}>servicenow@botconsulting.io · botconsulting.io</span> */}
-                    </div>
-                </footer>
-            );
+            // return (
+            //     <footer style={{ background: DARK, padding: "24px", borderTop: "1px solid rgba(255,255,255,0.04)" }}>
+            //         <div style={{ maxWidth: "1200px", margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
+            //             <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            //                 <span style={{ fontFamily: FONT, fontSize: "13px", fontWeight: 700, color: "white", letterSpacing: "1.5px" }}>BOT CONSULTING</span>
+            //                 <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.2)" }}>×</span>
+            //                 <span style={{ fontSize: "11px", color: CYAN, fontWeight: 600, fontFamily: FONT }}>K26</span>
+            //             </div>
+            //         </div>
+            //     </footer>
+            //);
         }
 
         function ScrollToTop() {
@@ -721,15 +758,16 @@
             .desktop-hidden { display: block !important; }
             .desktop-hidden-flex { display: flex !important; }
             .pad-mob { padding: 56px 20px !important; }
-            .hero-pad-mob { padding: 110px 20px 24px !important; }
+            .hero-pad-mob { padding: 110px 20px 48px !important; }
             .stack-mob { flex-direction: column !important; align-items: stretch !important; gap: 16px !important; }
             .stack-mob > * { flex-basis: auto !important; height: auto !important; }
             .stack-mob-align-start { align-items: flex-start !important; }
+            .dinner-details-mob { margin-top: 0 !important; }
+            .hero-img-mob { margin-top: 24px !important; }
             .text-center-mob { text-align: center !important; }
             .grid-1-mob { grid-template-columns: 1fr !important; }
             .nav-menu-mob { position: absolute; top: 100%; left: 0; right: 0; background: rgba(21,23,31,0.98); backdrop-filter: blur(14px); padding: 24px; display: flex; flex-direction: column; gap: 20px; border-bottom: 1px solid rgba(255,255,255,0.06); }
             .scroll-to-top-mob { bottom: 20px !important; right: 20px !important; width: 44px !important; height: 44px !important; }
-            .right-dinner-info { margin-top: 0 !important; }
         }
         @media (min-width: 769px) {
             .desktop-hidden, .desktop-hidden-flex { display: none !important; }
