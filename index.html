@@ -408,7 +408,7 @@
                             }}>
                                 {[
                                     { icon: "📅", label: "When", primary: "Tuesday, May 5", secondary: "12:00 – 2:00 PM" },
-                                    { icon: "📍", label: "Where", primary: "Bouchon", secondary: "The Venetian · Las Vegas" },
+                                    { icon: "📍", label: "Where", primary: "Bouchon", secondary: "The Venetian · Las Vegas", link: "https://share.google/NkYlEoMmvJpACjaJo" },
                                     //{ icon: "👥", label: "Format", primary: "One long table", secondary: "12 seats · no slides" },
                                     { icon: "🤝", label: "Hosted by", primary: "Manpreet Singh", secondary: "CEO, BOT Consulting" },
                                 ].map((item, i) => (
@@ -426,7 +426,14 @@
                                             }}>{item.label.toUpperCase()}</span>
                                         </div>
                                         <div style={{ fontFamily: FONT, fontSize: "15px", fontWeight: 700, color: "white", marginBottom: "3px" }}>
-                                            {item.primary}
+                                            {item.link ? (
+                                                <a href={item.link} target="_blank" rel="noopener noreferrer" style={{ color: "white", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "4px" }} onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'} onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}>
+                                                    {item.primary}
+                                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.8 }}><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+                                                </a>
+                                            ) : (
+                                                item.primary
+                                            )}
                                         </div>
                                         <div style={{ fontFamily: FONT, fontSize: "13px", color: "rgba(255,255,255,0.8)" }}>
                                             {item.secondary}
@@ -498,7 +505,7 @@
                                         { name: "David Holstein", title: "CEO / Founder", company: "Bettera", image: "./images/David Holstein.jpeg", initials: "DH", linkedin: "https://www.linkedin.com/in/dholstein/" },
                                         { name: "Dan Lyons", title: "Chief Customer Officer", company: "Bettera", image: "./images/dan.jpeg", initials: "D", linkedin: "https://www.linkedin.com/in/dlyons1/" },
                                         { name: "Tercera Team", title: "Lucy + Garrett", company: "Advisory Team", image: "./images/tercera_logo.jpeg", initials: "TT", linkedin: "https://www.linkedin.com/company/tercera-io/" },
-                                        { name: "Manpreet Singh", title: "CEO · Host", company: "BOT Consulting", image: "./images/0109 - Manpreet Singh.png", initials: "MS", linkedin: "https://www.linkedin.com/in/botmanpreetsingh/" },
+                                        { name: "Manpreet Singh", title: "CEO, Co-Founder · Host", company: "BOT Consulting", image: "./images/0109 - Manpreet Singh.png", initials: "MS", linkedin: "https://www.linkedin.com/in/botmanpreetsingh/" },
                                     ].map((p, i) => (
                                         <div key={i} style={{
                                             background: "rgba(255,255,255,0.12)",
