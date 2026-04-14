@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BOT Consulting at Knowledge 26</title>
-    <meta name="description" content="BOT Consulting is at Knowledge 2026, May 5–7 in Las Vegas, hosting an exclusive brunch with select ServiceNow leaders to talk about how we are accelerating innovation and delivering excellence for Servicenow partners like, Stridepath and Bettera.">
+    <meta name="description"
+        content="BOT Consulting is at Knowledge 2026, May 5–7 in Las Vegas, hosting an exclusive brunch with select ServiceNow leaders to talk about how we are accelerating innovation and delivering excellence for Servicenow partners like, Stridepath and Bettera.">
     <meta property="og:title" content="BOT Consulting at Knowledge 26">
-    <meta property="og:description" content="BOT Consulting is at Knowledge 2026, May 5–7 in Las Vegas, hosting an exclusive brunch with select ServiceNow leaders to talk about how we are accelerating innovation and delivering excellence for Servicenow partners like, Stridepath and Bettera.">
+    <meta property="og:description"
+        content="BOT Consulting is at Knowledge 2026, May 5–7 in Las Vegas, hosting an exclusive brunch with select ServiceNow leaders to talk about how we are accelerating innovation and delivering excellence for Servicenow partners like, Stridepath and Bettera.">
     <meta property="og:image" content="./images/vegas.jpg">
     <link
         href="https://cdn.prod.website-files.com/6746e7ae951ad1708ddc7e9c/6746e956703448a74db32f0d_Webflow%20-%20Fevicon_32.png"
@@ -363,45 +365,178 @@
 
         function Brunch() {
             return (
-                <section id="brunch" className="pad-mob" style={{ background: `linear-gradient(135deg, ${ORANGE} 0%, #C43E12 100%)`, padding: "80px 24px", position: "relative", overflow: "hidden" }}>
+                <section id="brunch" className="pad-mob" style={{
+                    background: `linear-gradient(135deg, #F47530 0%, #E5490A 100%)`,
+                    padding: "100px 24px", position: "relative", overflow: "hidden",
+                }}>
                     <div style={{ position: "absolute", inset: 0, opacity: 0.06, backgroundImage: "radial-gradient(circle at 2px 2px, white 0.5px, transparent 0.5px)", backgroundSize: "32px 32px" }} />
+
                     <div style={{ maxWidth: "1200px", margin: "0 auto", position: "relative", zIndex: 1 }}>
+
+                        {/* Section header — matches existing pattern */}
                         <FadeIn>
-                            <div className="stack-mob stack-mob-align-start" style={{ display: "flex", alignItems: "flex-start", gap: "56px", flexWrap: "wrap" }}>
-                                <div className="brunch-box-mob" style={{ flex: "1 1 420px" }}>
-                                    <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(255,255,255,0.15)", borderRadius: "20px", padding: "6px 14px", marginBottom: "20px" }}>
-                                        <span style={{ fontSize: "14px" }}>🍽</span>
-                                        <span style={{ color: "white", fontSize: "12px", fontWeight: 700, letterSpacing: "1.5px", fontFamily: FONT }}>BRUNCH AT KNOWLEDGE</span>
+                            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "16px" }}>
+                                <div style={{ width: "40px", height: "2px", background: "white" }} />
+                                <span style={{ color: "white", fontSize: "12px", fontWeight: 700, letterSpacing: "2px", fontFamily: FONT }}>
+                                    EXCLUSIVE BRUNCH
+                                </span>
+                            </div>
+
+                            <h2 style={{
+                                fontFamily: FONT, fontSize: "clamp(32px, 4.5vw, 52px)", fontWeight: 800,
+                                color: "white", lineHeight: 1.08, letterSpacing: "-1.5px", marginBottom: "20px",
+                                maxWidth: "780px",
+                            }}>
+                                Brunch <span style={{ color: "white" }}>with BOT </span> at Bouchon.
+                            </h2>
+
+                            <p style={{
+                                fontFamily: FONT, fontSize: "17px", color: "rgba(255,255,255,0.85)", lineHeight: 1.7,
+                                maxWidth: "640px", marginBottom: "48px",
+                            }}>
+                                An exclusive gathering of ServiceNow delivery leaders navigating the same inflection point:
+                                how to scale capacity, build AI-native assets, and stay ahead of margin pressure in a
+                                market that's moving fast.
+                            </p>
+                        </FadeIn>
+
+                        {/* Main info grid */}
+                        <FadeIn delay={0.1}>
+                            <div style={{
+                                display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 240px), 1fr))",
+                                gap: "12px", marginBottom: "14px",
+                            }}>
+                                {[
+                                    { icon: "📅", label: "When", primary: "Tuesday, May 5", secondary: "12:00 – 2:00 PM" },
+                                    { icon: "📍", label: "Where", primary: "Bouchon", secondary: "The Venetian · Las Vegas" },
+                                    //{ icon: "👥", label: "Format", primary: "One long table", secondary: "12 seats · no slides" },
+                                    { icon: "🤝", label: "Hosted by", primary: "Manpreet Singh", secondary: "CEO, BOT Consulting" },
+                                ].map((item, i) => (
+                                    <div key={i} style={{
+                                        background: "rgba(255,255,255,0.12)",
+                                        border: "1px solid rgba(255,255,255,0.2)",
+                                        borderRadius: "12px", padding: "20px 22px",
+                                        backdropFilter: "blur(8px)",
+                                    }}>
+                                        <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
+                                            <span style={{ fontSize: "16px" }}>{item.icon}</span>
+                                            <span style={{
+                                                fontFamily: FONT, fontSize: "11px", fontWeight: 700,
+                                                color: "white", letterSpacing: "1.5px", opacity: 0.8
+                                            }}>{item.label.toUpperCase()}</span>
+                                        </div>
+                                        <div style={{ fontFamily: FONT, fontSize: "15px", fontWeight: 700, color: "white", marginBottom: "3px" }}>
+                                            {item.primary}
+                                        </div>
+                                        <div style={{ fontFamily: FONT, fontSize: "13px", color: "rgba(255,255,255,0.8)" }}>
+                                            {item.secondary}
+                                        </div>
                                     </div>
-                                    <h2 style={{ fontFamily: FONT, fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 800, color: "white", lineHeight: 1.1, letterSpacing: "-1.5px", marginBottom: "16px" }}>
-                                        Great conversations<br />happen over brunch.
-                                    </h2>
-                                    <p style={{ fontFamily: FONT, fontSize: "16px", color: "rgba(255,255,255,0.85)", lineHeight: 1.7, maxWidth: "440px", marginBottom: "24px" }}>
-                                        We’re hosting a private brunch at Knowledge26 for ServiceNow ecosystem leaders.
-                                        No agenda. No decks. Just great food, real conversations—and the kind you don’t get on the expo floor.
-                                        Join Manpreet Singh and a select group of leaders shaping what’s next.
-                                    </p>
-                                    <a href="#rsvp" className="custom-hover-scale" style={{ display: "inline-block", background: "white", color: ORANGE, padding: "12px 24px", borderRadius: "8px", fontSize: "15px", fontWeight: 700, textDecoration: "none", fontFamily: FONT }}>
-                                        RSVP for brunch →
-                                    </a>
+                                ))}
+                            </div>
+                        </FadeIn>
+
+                        {/* The conversation block */}
+                        <FadeIn delay={0.2}>
+                            <div style={{
+                                background: "rgba(255,255,255,0.1)",
+                                border: "1px solid rgba(255,255,255,0.2)",
+                                borderRadius: "12px", padding: "36px 40px", marginBottom: "14px",
+                                borderLeft: `4px solid white`,
+                            }}>
+                                <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "14px" }}>
+                                    <span style={{
+                                        fontFamily: FONT, fontSize: "11px", fontWeight: 700,
+                                        color: "white", letterSpacing: "2px", opacity: 0.8
+                                    }}>THE CONVERSATION</span>
                                 </div>
-                                <div className="brunch-details-mob" style={{ display: "flex", flexDirection: "column", gap: "12px", marginTop: "48px" }}>
+                                <p style={{
+                                    fontFamily: FONT, fontSize: "16px", lineHeight: 1.75,
+                                    color: "white", marginBottom: "16px",
+                                }}>
+                                    With partners like <span style={{ color: "white", fontWeight: 700 }}>StridePath</span> and <span style={{ color: "white", fontWeight: 700 }}>Bettera</span> already
+                                    building delivery pods from India, we'll share what's working — from 5-person incubation teams
+                                    to Now Assist and Moveworks-powered workflows — and map out how to make the most of Knowledge together.
+                                </p>
+                                <p style={{
+                                    fontFamily: FONT, fontSize: "15px", lineHeight: 1.7,
+                                    color: "rgba(255,255,255,0.8)", fontStyle: "italic", margin: 0,
+                                }}>
+                                    No slides, no pitches. Just a real conversation over a good meal with people who are doing the work.
+                                </p>
+                            </div>
+                        </FadeIn>
+
+                        {/* At the table — attendee list */}
+                        <FadeIn delay={0.3}>
+                            <div style={{ marginBottom: "32px" }}>
+                                <div style={{
+                                    display: "flex", alignItems: "flex-end", justifyContent: "space-between",
+                                    marginBottom: "20px", flexWrap: "wrap", gap: "12px",
+                                }}>
+                                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                        <div style={{ width: "40px", height: "2px", background: "white" }} />
+                                        <span style={{
+                                            fontFamily: FONT, fontSize: "12px", fontWeight: 700,
+                                            color: "white", letterSpacing: "2px", opacity: 0.8
+                                        }}>AT THE TABLE</span>
+                                    </div>
+                                    <span style={{
+                                        fontFamily: FONT, fontSize: "12px", color: "rgba(255,255,255,0.7)", fontWeight: 500,
+                                    }}>
+                                    </span>
+                                </div>
+
+                                <div style={{
+                                    display: "grid",
+                                    gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))",
+                                    gap: "10px",
+                                }}>
                                     {[
-                                        { icon: "📍", label: "Bouchon at The Venetian", detail: "Las Vegas" },
-                                        { icon: "📅", label: "Date", detail: "5th May 2026" },
-                                        { icon: "🕕", label: "Time", detail: "12:00 PM - 02:00 PM" },
-                                    ].map((item, index) => (
-                                        <div key={index} style={{ background: "rgba(255,255,255,0.12)", borderRadius: "10px", padding: "14px 20px", backdropFilter: "blur(8px)", minWidth: "240px" }}>
-                                            <div style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}>
-                                                <span style={{ fontSize: "16px" }}>{item.icon}</span>
-                                                <div>
-                                                    <div style={{ fontFamily: FONT, fontSize: "14px", fontWeight: 700, color: "white" }}>{item.label}</div>
-                                                    <div style={{ fontFamily: FONT, fontSize: "12px", color: "rgba(255,255,255,0.6)", marginTop: "1px" }}>{item.detail}</div>
+                                        { name: "Greg Smith", title: "Managing Partner, CEO", company: "StridePath", image: "./images/Greg Smith.jpeg", initials: "GS", linkedin: "https://www.linkedin.com/in/greg-smith-64b15b1/" },
+                                        { name: "Brandy Bass", title: "Managing Partner, COO", company: "StridePath", image: "./images/Brandy Brass.jpeg", initials: "BB", linkedin: "https://www.linkedin.com/in/brandynbass/" },
+                                        { name: "David Holstein", title: "CEO / Founder", company: "Bettera", image: "./images/David Holstein.jpeg", initials: "DH", linkedin: "https://www.linkedin.com/in/dholstein/" },
+                                        { name: "Dan Lyons", title: "Chief Customer Officer", company: "Bettera", image: "./images/dan.jpeg", initials: "D", linkedin: "https://www.linkedin.com/in/dlyons1/" },
+                                        { name: "Tercera Team", title: "Lucy + Garrett", company: "Advisory Team", image: "./images/tercera_logo.jpeg", initials: "TT", linkedin: "https://www.linkedin.com/company/tercera-io/" },
+                                        { name: "Manpreet Singh", title: "CEO · Host", company: "BOT Consulting", image: "./images/0109 - Manpreet Singh.png", initials: "MS", linkedin: "https://www.linkedin.com/in/botmanpreetsingh/" },
+                                    ].map((p, i) => (
+                                        <div key={i} style={{
+                                            background: "rgba(255,255,255,0.12)",
+                                            border: "1px solid rgba(255,255,255,0.2)",
+                                            borderRadius: "10px", padding: "16px 18px",
+                                            display: "flex", alignItems: "center", gap: "14px"
+                                        }}>
+                                            <Avatar src={p.image} alt={p.name} initials={p.initials} size={48} objectPosition="center top" />
+                                            <div>
+                                                {p.linkedin ? (
+                                                    <a href={p.linkedin} target="_blank" rel="noopener noreferrer" style={{ fontFamily: FONT, fontSize: "14px", fontWeight: 700, color: "white", textDecoration: "none" }} onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'} onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}>{p.name}</a>
+                                                ) : (
+                                                    <div style={{ fontFamily: FONT, fontSize: "14px", fontWeight: 700, color: "white" }}>{p.name}</div>
+                                                )}
+                                                <div style={{ fontFamily: FONT, fontSize: "12px", color: "rgba(255,255,255,0.8)", marginTop: "3px" }}>
+                                                    {p.title}
+                                                </div>
+                                                <div style={{ fontFamily: FONT, fontSize: "11px", color: "white", fontWeight: 600, marginTop: "4px", letterSpacing: "0.3px", opacity: 0.9 }}>
+                                                    {p.company}
                                                 </div>
                                             </div>
                                         </div>
                                     ))}
                                 </div>
+                            </div>
+                        </FadeIn>
+
+                        {/* CTA — matches existing hero button style */}
+                        <FadeIn delay={0.4}>
+                            <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", alignItems: "center" }}>
+                                <a href="#rsvp" className="custom-hover-scale" style={{
+                                    background: "white", color: ORANGE,
+                                    padding: "14px 28px", borderRadius: "8px",
+                                    fontSize: "15px", fontWeight: 700, textDecoration: "none",
+                                    fontFamily: FONT, display: "inline-flex", alignItems: "center", gap: "8px",
+                                }}>
+                                    RSVP for brunch →
+                                </a>
                             </div>
                         </FadeIn>
                     </div>
