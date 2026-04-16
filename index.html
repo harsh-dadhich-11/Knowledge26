@@ -197,9 +197,9 @@
                         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                             <img src="./images/BOT logo white.svg" alt="BOT Consulting" style={{ height: "32px", width: "auto", display: "block" }} />
                             <span className="mobile-hidden" style={{ width: "1px", height: "14px", background: "rgba(255,255,255,0.18)" }} />
-                            <span className="mobile-hidden" style={{ fontFamily: FONT, fontSize: "12px", fontWeight: 700, color: CYAN, letterSpacing: "1.2px" }}>
-                                KNOWLEDGE 26
-                            </span>
+                            <a className="mobile-hidden" href="https://www.servicenow.com/events/knowledge.html" target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center" }}>
+                                <img src="./images/knowledge26-logo.svg" alt="Knowledge 26" style={{ height: "42px", width: "auto", display: "block" }} />
+                            </a>
                         </div>
                         {/* Desktop Nav */}
                         <div className="mobile-hidden" style={{ display: "flex", gap: "22px", flexWrap: "wrap", alignItems: "center" }}>
@@ -244,6 +244,24 @@
         }
 
         function Hero() {
+            const [isMeetingOpen, setIsMeetingOpen] = useState(false);
+
+            useEffect(() => {
+                if (isMeetingOpen) {
+                    const script = document.createElement("script");
+                    script.src = "https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js";
+                    script.type = "text/javascript";
+                    script.async = true;
+                    document.body.appendChild(script);
+
+                    return () => {
+                        if (document.body.contains(script)) {
+                            document.body.removeChild(script);
+                        }
+                    };
+                }
+            }, [isMeetingOpen]);
+
             return (
                 <section
                     style={{
@@ -295,7 +313,7 @@
                                     >
                                         <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: ORANGE, display: "inline-block" }} />
                                         <span style={{ color: "rgba(255,255,255,0.78)", fontSize: "13px", fontWeight: 600, fontFamily: FONT }}>
-                                            Date: 5th May 2026
+                                            5th May 2026
                                         </span>
                                     </div>
 
@@ -324,9 +342,9 @@
                                         <a href="#rsvp" className="custom-btn text-center-mob" style={{ background: ORANGE, color: "white", padding: "14px 28px", borderRadius: "8px", fontSize: "15px", fontWeight: 700, textDecoration: "none", fontFamily: FONT }}>
                                             RSVP for Brunch →
                                         </a>
-                                        <a href="#rsvp" className="custom-btn-outline text-center-mob" style={{ background: "rgba(255,255,255,0.06)", color: "white", padding: "14px 28px", borderRadius: "8px", fontSize: "15px", fontWeight: 600, textDecoration: "none", fontFamily: FONT, border: "1px solid rgba(255,255,255,0.12)" }}>
+                                        <button onClick={() => setIsMeetingOpen(true)} className="custom-btn-outline text-center-mob" style={{ background: "rgba(255,255,255,0.06)", color: "white", padding: "14px 28px", borderRadius: "8px", fontSize: "15px", fontWeight: 600, textDecoration: "none", fontFamily: FONT, border: "1px solid rgba(255,255,255,0.12)", cursor: "pointer" }}>
                                             Book a meeting
-                                        </a>
+                                        </button>
                                     </div>
                                 </FadeIn>
 
@@ -337,12 +355,12 @@
                                         </span>
                                         <div style={{ display: "flex", alignItems: "center", gap: "16px", flexWrap: "wrap" }}>
                                             {[
-                                                { name: "Stridepath", logo: "./images/stridepath.png" },
-                                                { name: "Bettera", logo: "./images/BETTERA.png" }
+                                                { name: "Stridepath", logo: "./images/stridepath.png", url: "https://stridepath.com/" },
+                                                { name: "Bettera", logo: "./images/BETTERA.png", url: "https://www.bettera.co/" }
                                             ].map((item) => (
-                                                <div key={item.name} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                                <a key={item.name} href={item.url} target="_blank" rel="noopener noreferrer" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                                                     <img src={item.logo} alt={item.name} style={{ height: "56px", borderRadius: "8px", objectFit: "contain", objectPosition: "center center" }} />
-                                                </div>
+                                                </a>
                                             ))}
                                         </div>
                                     </div>
@@ -359,6 +377,42 @@
                             </div>
                         </div>
                     </div>
+
+                    {isMeetingOpen && (
+                        <div style={{
+                            position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
+                            zIndex: 99999, background: "rgba(21, 23, 31, 0.8)",
+                            backdropFilter: "blur(8px)", display: "flex",
+                            alignItems: "center", justifyContent: "center", padding: "20px"
+                        }}>
+                            <div style={{
+                                background: "white", borderRadius: "16px",
+                                width: "100%", maxWidth: "600px", maxHeight: "90vh",
+                                position: "relative", overflow: "hidden",
+                                display: "flex", flexDirection: "column",
+                                boxShadow: "0 24px 48px rgba(0,0,0,0.4)"
+                            }}>
+                                <button
+                                    onClick={() => setIsMeetingOpen(false)}
+                                    style={{
+                                        position: "absolute", top: "16px", right: "16px",
+                                        background: "rgba(0,0,0,0.05)", border: "none",
+                                        width: "32px", height: "32px", borderRadius: "50%",
+                                        display: "flex", alignItems: "center", justifyContent: "center",
+                                        fontSize: "18px", cursor: "pointer", zIndex: 10,
+                                        color: "#333", transition: "background 0.2s"
+                                    }}
+                                    onMouseEnter={(e) => e.currentTarget.style.background = "rgba(0,0,0,0.1)"}
+                                    onMouseLeave={(e) => e.currentTarget.style.background = "rgba(0,0,0,0.05)"}
+                                >
+                                    ✕
+                                </button>
+                                <div style={{ overflowY: "auto", flex: 1, padding: "24px 12px 12px" }}>
+                                    <div className="meetings-iframe-container" data-src="https://meetings-na2.hubspot.com/manpreet21?embed=true"></div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </section>
             );
         }
@@ -474,6 +528,20 @@
                             </div>
                         </FadeIn>
 
+                        {/* CTA — matches existing hero button style */}
+                        <FadeIn delay={0.4}>
+                            <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", alignItems: "center", marginBottom: "48px" }}>
+                                <a href="#rsvp" className="custom-hover-scale" style={{
+                                    background: "white", color: ORANGE,
+                                    padding: "14px 28px", borderRadius: "8px",
+                                    fontSize: "15px", fontWeight: 700, textDecoration: "none",
+                                    fontFamily: FONT, display: "inline-flex", alignItems: "center", gap: "8px",
+                                }}>
+                                    RSVP for brunch →
+                                </a>
+                            </div>
+                        </FadeIn>
+
                         {/* At the table — attendee list */}
                         <FadeIn delay={0.3}>
                             <div style={{ marginBottom: "32px" }}>
@@ -504,7 +572,8 @@
                                         { name: "Brandy Bass", title: "Managing Partner, COO", company: "StridePath", image: "./images/Brandy Brass.jpeg", initials: "BB", linkedin: "https://www.linkedin.com/in/brandynbass/" },
                                         { name: "David Holstein", title: "CEO / Founder", company: "Bettera", image: "./images/David Holstein.jpeg", initials: "DH", linkedin: "https://www.linkedin.com/in/dholstein/" },
                                         { name: "Dan Lyons", title: "Chief Customer Officer", company: "Bettera", image: "./images/dan.jpeg", initials: "D", linkedin: "https://www.linkedin.com/in/dlyons1/" },
-                                        { name: "Tercera Team", title: "Lucy Pedlow and Garrett Black", image: "./images/tercera_logo.jpeg", initials: "TT", linkedin: "https://www.linkedin.com/company/tercera-io/" },
+                                        { name: "Lucy Pedlow", title: "Senior Associate", company: "Tercera", image: "./images/lucy.jpeg", initials: "LP", linkedin: "https://www.linkedin.com/in/lucy-pedlow-442624133/" },
+                                        { name: "Garrett Blank", title: "Partner", company: "Tercera", image: "./images/garrett.jpeg", initials: "GB", linkedin: "https://www.linkedin.com/in/garrettblank/" },
                                         { name: "Manpreet Singh", title: "CEO, Co-Founder · Host", company: "BOT Consulting", image: "./images/0109 - Manpreet Singh.png", initials: "MS", linkedin: "https://www.linkedin.com/in/botmanpreetsingh/" },
                                     ].map((p, i) => (
                                         <div key={i} style={{
@@ -532,20 +601,6 @@
                                 </div>
                             </div>
                         </FadeIn>
-
-                        {/* CTA — matches existing hero button style */}
-                        <FadeIn delay={0.4}>
-                            <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", alignItems: "center" }}>
-                                <a href="#rsvp" className="custom-hover-scale" style={{
-                                    background: "white", color: ORANGE,
-                                    padding: "14px 28px", borderRadius: "8px",
-                                    fontSize: "15px", fontWeight: 700, textDecoration: "none",
-                                    fontFamily: FONT, display: "inline-flex", alignItems: "center", gap: "8px",
-                                }}>
-                                    RSVP for brunch →
-                                </a>
-                            </div>
-                        </FadeIn>
                     </div>
                 </section>
             );
@@ -571,8 +626,8 @@
 
                         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))", gap: "20px", marginBottom: "20px" }}>
                             {[
-                                { tag: "MODEL 1", title: "Build your GCC", accent: TEAL, bestFor: "Best for: Partners ready to scale innovation from India." },
-                                { tag: "MODEL 2", title: "Bolt-on co-delivery", accent: ORANGE, bestFor: "Best for: Partners who want India delivery without standing up a full centre." },
+                                { tag: "MODEL 1", title: "Build your GCC", accent: TEAL, bestFor: "Empowering ServiceNow partners to scale through our GCC model." },
+                                { tag: "MODEL 2", title: "Bolt-on co-delivery", accent: ORANGE, bestFor: "Extend your delivery capabilities in India without standing up a full centre." },
                             ].map((item, index) => (
                                 <FadeIn key={item.title} delay={index * 0.08}>
                                     <div className="custom-hover-card" style={{ background: "white", borderRadius: "14px", padding: "34px 32px", border: "1px solid #E8E6E3", borderTop: `4px solid ${item.accent}`, display: "flex", flexDirection: "column", height: "100%", boxSizing: "border-box" }}>
