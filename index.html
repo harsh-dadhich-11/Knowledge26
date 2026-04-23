@@ -373,7 +373,7 @@
                             <div className="hero-img-mob" style={{ flex: "1 1 400px", display: "flex", justifyContent: "center", marginTop: "56px" }}>
                                 <FadeIn delay={0.25}>
                                     <div style={{ position: "relative", width: "100%", maxWidth: "960px", aspectRatio: "16/9", borderRadius: "20px", overflow: "hidden", boxShadow: "0 24px 48px rgba(0,0,0,0.4)", border: "1px solid rgba(255,255,255,0.12)" }}>
-                                        <iframe src="https://www.youtube.com/embed/_1hwXiaEZuQ?autoplay=1&mute=1&loop=1&playlist=_1hwXiaEZuQ&rel=0&modestbranding=1&playsinline=1" title="Hero Video" style={{ width: "560px", height: "315px", objectFit: "cover", border: "none" }} allow="autoplay; encrypted-media" allowFullScreen />
+                                        <iframe className="hero-video-iframe" src="https://www.youtube.com/embed/_1hwXiaEZuQ?autoplay=1&mute=1&loop=1&playlist=_1hwXiaEZuQ&rel=0&modestbranding=1&playsinline=1" title="Hero Video" style={{ border: "none" }} allow="autoplay; encrypted-media" allowFullScreen />
                                     </div>
                                 </FadeIn>
                             </div>
@@ -959,6 +959,7 @@
         .custom-hover-scale:hover { transform: scale(1.02); }
         .custom-check-row:hover { background: rgba(255,255,255,0.08) !important; border-color: rgba(255,255,255,0.2) !important; }
         .custom-hover-pill:hover { background: rgba(33,80,82,0.12) !important; transform: translateY(-1px); }
+        .hero-video-iframe { width: 560px; height: 315px; }
         @media (max-width: 768px) {
             .mobile-hidden { display: none !important; }
             .desktop-hidden { display: block !important; }
@@ -970,6 +971,7 @@
             .stack-mob-align-start { align-items: flex-start !important; }
             .brunch-details-mob { margin-top: 0 !important; }
             .hero-img-mob { margin-top: 24px !important; }
+            .hero-video-iframe { width: 100% !important; height: 100% !important; }
             .text-center-mob { text-align: center !important; }
             .grid-1-mob { grid-template-columns: 1fr !important; }
             .nav-menu-mob { position: absolute; top: 100%; left: 0; right: 0; background: rgba(21,23,31,0.98); backdrop-filter: blur(14px); padding: 24px; display: flex; flex-direction: column; gap: 20px; border-bottom: 1px solid rgba(255,255,255,0.06); }
